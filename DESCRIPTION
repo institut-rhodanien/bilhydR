@@ -1,0 +1,16 @@
+Package: bilhydR
+Type: Package
+Title: Modélisation du Bilan Hydrique - IFV (J.C Payan) avec les données EPICURE
+Version: 0.1.0
+Author: R. Lacroix
+Maintainer: R. Lacroix <sig@syndicat-cotesdurhone.com>
+Description: Le package fournit des fonctions pour récupérer les données météo depuis un fichier FTP EPICURE sur les différents sites (parcelles), modéliser le bilan hydrique pour chaque site et propose une sortie graphique.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    tidyverse,
+    lubridate,
+    janitor,
+    magrittr
+RoxygenNote: 7.1.2
