@@ -60,6 +60,10 @@ BH <- function(data, deb, ru, dd_Kvmax = 600, Kvmax = 0.55, dd_D = 80, irrig = 0
     dplyr::slice(1) %>%
     dplyr::pull(date)
 
+  if(length(date_Kvmax)==0){
+    date_Kvmax <- as.Date(paste0(year(deb),"-06","-15"))
+  }
+
   data_kv <- data_GDD10 %>%
     dplyr::mutate(kv = dplyr::case_when(
       date < deb ~ 0,
