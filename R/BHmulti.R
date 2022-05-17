@@ -13,14 +13,19 @@
 #' @export
 BHmulti <- function(data, deb) {
  BH80 <- BH(data, deb, ru=80)%>%
-   rename(PHFB80 = PHFB)
+   rename(PHFB80 = PHFB)%>%
+   rename(FTSW80 = FTSW)
 
  BH120 <- BH(data, deb, ru=120)%>%
-   rename(PHFB120 = PHFB)
+   rename(PHFB120 = PHFB)%>%
+   rename(FTSW120 = FTSW)
  BH180 <- BH(data, deb, ru=180)%>%
-   rename(PHFB180 = PHFB)
+   rename(PHFB180 = PHFB)%>%
+   rename(FTSW120 = FTSW)
 
 dt_multi <- BH80
+dt_multi$FTSW120 <- BH120$FTSW120
+dt_multi$FTSW180 <- BH180$FTSW180
 dt_multi$PHFB120 <- BH120$PHFB120
 dt_multi$PHFB180 <- BH180$PHFB180
 return(dt_multi)
