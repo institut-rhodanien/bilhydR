@@ -21,7 +21,7 @@ BHmulti <- function(data, deb) {
    rename(FTSW120 = FTSW)
  BH180 <- BH(data, deb, ru=180)%>%
    rename(PHFB180 = PHFB)%>%
-   rename(FTSW120 = FTSW)
+   rename(FTSW180 = FTSW)
 
 dt_multi <- BH80
 dt_multi$FTSW120 <- BH120$FTSW120
