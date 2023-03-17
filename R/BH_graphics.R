@@ -118,6 +118,10 @@ for (j in maxdoy+1:273) {
 }
 
 seuils_classes <- seuils_dad%>%pivot_longer(cols=c(2:6),values_to = "PHFB", names_to = "Classe")
-return(seuils_classes)
-return(doy_seq, jour_seq)
+doy_seq <- doy_seq
+jour_seq <- jour_seq
+
+resultat <- list(seuils_classes, doy_seq, jour_seq)
+names(resultat) <- c("seuils_classes", "doy_seq","jour_seq")
+return(resultat)
 }
