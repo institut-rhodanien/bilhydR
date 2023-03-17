@@ -94,6 +94,8 @@ Pour installer la dernière version de bilhydR :
         legend.position = c(0.1, 0.65)
       )
 ```
+![](https://prnt.sc/Q7mkWdrig5Sx)
+
 ### Récupérer des données météo sous EPICURE
 
 ```
