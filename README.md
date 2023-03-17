@@ -2,24 +2,99 @@
 
 Ce package fournit quelques fonctions simples pour l'utilisation du bilan hydrique sous R.
 
-
 Le package permet :
 
-   * de récupérer les données météorologiques sous EPICURE
-   * de modéliser le bilan hydrique
-   * de réaliser des sorties graphiques
+-   de récupérer les données météorologiques sous EPICURE
+-   de modéliser le bilan hydrique
+-   de réaliser des sorties graphiques
 
 ## Installation
 
 Pour installer la dernière version de bilhydR :
 
-```
-library(remotes)
-install_github("institut-rhodanien/bilhydR")
-```
+    library(remotes)
+    install_github("institut-rhodanien/bilhydR")
+
+## Exemple d'utilisation
+
+    # LIBRAIRIES ----
+    # remotes::install_github("institut-rhodanien/bilhydR")
+
+    library(bilhydR)
+    library(lubridate)
+    library(tidyverse)
+
+
+    data <- meteoStHilaire2021
+    datedeb <- "2021-04-01"
+
+
+    BHdata <- BHmulti(meteoStHilaire2021, deb=datedeb)
+
+    seuils_classes <- bilhydR::BH_graphics(annee = 2021)$seuils_classes
+    doy_seq <- bilhydR::BH_graphics(annee = 2021)$doy_seq
+    jour_seq <- bilhydR::BH_graphics(annee = 2021)$jour_seq
+
+    ylim.prim <- c(0, 80)   # seuils precip
+    ylim.sec <- c(-1.5, 0)    # seuils phfb
+
+    b <- diff(ylim.prim)/diff(ylim.sec)
+    a <- ylim.prim[1] - b*ylim.sec[1]
+
+    ggplot(data = BHdata%>%filter(date > datedeb)) +
+      geom_area(data=seuils_classes%>%filter(Classe == "A"),
+                aes(x= doy, y= a + PHFB*b,fill="A"))+
+      geom_area(data=seuils_classes%>%filter(Classe == "B"),
+                aes(x= doy, y= a + PHFB*b,fill="B"))+
+      geom_area(data=seuils_classes%>%filter(Classe == "C"),
+                aes(x= doy, y= a + PHFB*b,fill="C"))+
+      geom_area(data=seuils_classes%>%filter(Classe == "D"),
+                aes(x= doy, y= a + PHFB*b,fill="D"))+
+      geom_area(data=seuils_classes%>%filter(Classe == "E"),
+                aes(x= doy, y= a + PHFB*b, fill="E"))+
+      scale_fill_manual(breaks = c('A','B','C','D','E'), values = c(
+        '#99CCFF','#CCFFCC','#FFFF99','#FFCC00','#FF9900'
+      ))+
+      geom_col(data = BHdata%>%filter(date > datedeb), aes(x = doy, pluie), fill = "#3E9DFD", color = NA)  +
+      geom_line(aes(x=doy, y = a + PHFB80*b,color = "80 mm"), size= 1) +
+      geom_line(aes(x=doy,y = a + PHFB120*b, color = "120 mm"), size= 1) +
+      geom_line(aes(x=doy,y = a + PHFB180*b, color = "180 mm"), size= 1) +
+
+      scale_color_manual(breaks = c('80 mm','120 mm', '180 mm'), values = c('#2C0707', '#DC2323', '#f8D3D3'))+
+      scale_x_continuous(limits = c(91,273), breaks = doy_seq,
+                         labels = jour_seq, expand = c(0,0))+
+      scale_y_continuous("Precipitations (mm)", breaks = seq(0,100,10), expand = c(0, 0), 
+                         sec.axis = sec_axis(~ (. - a)/b, name = "PHFB (MPa)\n", breaks = seq(-1.5, 0, 0.1))) +
+      labs(x="", title = "Bilan Hydrique - St-Hilaire", color = "RU")+
+      guides(fill="none")+
+      theme_light()+
+      theme(
+        axis.line = element_line(color = "black"),
+        axis.text = element_text(color = "black"),
+        axis.text.x = element_text(angle=90, hjust = 1, vjust=0.5),
+        axis.ticks = element_line(color="black"),
+        panel.border = element_rect(colour = "black", fill=NA),
+        legend.position = c(0.1, 0.65)
+      )
+
+
+    ggplot(BHdata)+
+      geom_line(aes(x=doy, y = FTSW80))+
+      scale_x_continuous(limits = c(91,273), breaks = doy_seq,
+                         labels = jour_seq, expand = c(0,0))+
+      labs(x="", title = "FTSW - St-Hilaire")+
+      theme_light()+
+      theme(
+        axis.line = element_line(color = "black"),
+        axis.text = element_text(color = "black"),
+        axis.text.x = element_text(angle=90, hjust = 1, vjust=0.5),
+        axis.ticks = element_line(color="black"),
+        panel.border = element_rect(colour = "black", fill=NA),
+        legend.position = c(0.1, 0.65)
+      )
+
+
 
 ## Contribuer
 
 Les contributions de toutes sortes sont les bienvenues, issues et pull requests sont la manière préférentielle de les partager.
-
-
