@@ -16,7 +16,8 @@ Pour installer la dernière version de bilhydR :
     install_github("institut-rhodanien/bilhydR")
 
 ## Exemple d'utilisation
-
+### Générer des bilans hydriques + graphiques
+```
     # LIBRAIRIES ----
     # remotes::install_github("institut-rhodanien/bilhydR")
 
@@ -92,8 +93,43 @@ Pour installer la dernière version de bilhydR :
         panel.border = element_rect(colour = "black", fill=NA),
         legend.position = c(0.1, 0.65)
       )
+```
+### Récupérer des données météo sous EPICURE
 
+```
+# LOGIN/PASS EPICURE----
 
+login <- "monlogin"
+pass <- "monmdp"
+
+# liste des fichiers disponibles sur le FTP avec login/mdp
+EPICUREfiles("monlogin", "monmdp")
+
+# recupere les données meteo d'un fichier
+
+meteo2021 <- recupMeteo(login, pass, "export_cotes_du_rhone_2021.csv")
+
+# recupere les données meteo d'un POM
+
+id_pom <- "XXXXXXXXX"
+
+result <- fromJSON(getURL(paste0("ftp://",login,":",pass,"@ftp.vignevin-epicure.com/",id_pom,"/meteo/2023.json" )))
+  
+meteo <- t(as.data.frame(do.call(cbind, result)))%>%
+    as.data.frame()%>%
+    rownames_to_column(var="date")%>%
+    dplyr::select(1:11)%>%
+    as_tibble()%>%
+    mutate(station = stations[[i]])%>%
+    mutate_at(.vars = c(3:11), .funs = as.character)%>%
+    mutate_at(.vars = c(3:11), .funs = as.numeric)%>%
+    mutate_at(.vars = c(3:11), .funs = ~round(.x, digits=2))%>%
+    mutate(date = as.Date(date, "%Y/%m/%d"))%>%
+    mutate(doy = yday(date))%>%
+    dplyr::filter(prev == FALSE)%>%
+    dplyr::select(12,1,13,6,7,8,3,5,4,9,10,11)
+
+```
 
 ## Contribuer
 
