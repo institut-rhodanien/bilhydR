@@ -107,7 +107,7 @@ EPICUREfiles("monlogin", "monmdp")
 
 # recupere les données meteo d'un fichier
 
-meteo2021 <- recupMeteo(login, pass, "export_cotes_du_rhone_2021.csv")
+meteo2021 <- recupMeteo(login, pass, "mon_super_fichier_2023.csv")
 
 # recupere les données meteo d'un POM
 
