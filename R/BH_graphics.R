@@ -1,11 +1,24 @@
-library(tidyverse)
+#' Génère les éléments de sortie graphique
+#'
+#'
+#' @param deb la date de débourrement, en doy. Defaut = 91
+#' @param flo la date de floraison, en doy. Defaut =  152
+#' @param ver la date de véraison, en doy. Defaut =  213
+#' @param rec la date de récolte, en doy. Defaut =  252
+#' @param annee l'année
+#'
+#' @return Un data frame avec les seuils de classes de contrainte
+#' @return Un vecteur de dates
+#'
+#' @examples
+#' BH_graphics(deb = 95, flo = 154, 2023)
+#'
+#' @export
 
-deb <- 91
-flo <- 152
-ver <- 213
-rec <- 252
-annee <- 2022
 
+
+
+BH_graphics <- function(deb = 91, flo = 152, ver = 213, rec = 252, annee){
 {
 doy_seq <- seq(91,273, 7)
 jour_seq <- format(seq.Date(from = as.Date(paste0(annee,"-04-01")), to = as.Date(paste0(annee,"-09-30")), by = "week"),"%d %b")
@@ -107,4 +120,4 @@ for (j in maxdoy+1:273) {
 
 seuils_classes <- seuils_dad%>%pivot_longer(cols=c(2:6),values_to = "PHFB", names_to = "Classe")
 
-
+}

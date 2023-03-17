@@ -2,6 +2,7 @@
 
 export("%>%")
 export(BH)
+export(BH_graphics)
 export(BHmulti)
 export(EPICUREfiles)
 export(dateDebourrement)
