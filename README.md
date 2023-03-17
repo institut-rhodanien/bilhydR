@@ -25,7 +25,7 @@ Pour installer la dernière version de bilhydR :
     library(lubridate)
     library(tidyverse)
 
-
+    # données d'exemple fournies avec le package
     data <- meteoStHilaire2021
     datedeb <- "2021-04-01"
 
