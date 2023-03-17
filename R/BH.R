@@ -135,6 +135,11 @@ BH <- function(data, deb, ru, dd_Kvmax = 600, Kvmax = 0.55, dd_D = 80, irrig = 0
 
     data_tmp$Cumul_P_si_jour_Es[j] <- ifelse(data_tmp$Jours_Es[j] == 0, 0, data_tmp$Cumul_P_si_jour_Es[j - 1] + data_tmp$Peff[j] - data_tmp$D[j])
 
+
+    # Cumul ES_reelle
+
+    data_tmp$Cumul_Es_reelle[j] <- ifelse(data_tmp$Jours_Es[j] == 0, 0, data_tmp$Cumul_Es_reelle[j - 1] + data_tmp$Es_max[j]) #
+
     # Es_max
 
     data_tmp$Es_max[j] <- ifelse(data_tmp$Nb_j_Es_co_PD[j] == 0, data_tmp$Es_th[j],
