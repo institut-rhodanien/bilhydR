@@ -143,6 +143,8 @@ Les contributions de toutes sortes sont les bienvenues, issues et pull requests 
 
 - Payan J.-C. et Salançon E. 2003. DEFINIR LE REGIME HYDRIQUE DES PARCELLES ET DES MILLESIMES. Wine internet technical journal, (15), p. 5.
 
+- Payan J.C. 2004 L'évaluation de la contrainte hydrique: développer des outils pour mieux connaître ses conséquences sur la qualité de la vendange. Cahier Technique Mondiaviti, Bordeaux, éd. ITV France : 127-132.
+
 - Payan J.-C. 2007. Contrôle du stress hydrique pour la gestion de l’irrigation en viticulture. Dans : Euroviti. p. 7. Disponible sur : https://www.vignevin-occitanie.com/wp-content/uploads/2018/10/20-stressHydrique_JCP_2007.pdf
 
 - Payan J.-C. 2012. Outils de gestion de l’irrigation au vignoble. Présenté à : 2012- Soirées Rhodaniennes, Institut Rhodanien. Disponible sur : https://www.institut-rhodanien.com/upload/article/file/15irrigationjeanchristophepayan-616432c044e51.pdf 
